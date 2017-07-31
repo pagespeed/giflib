@@ -1,215 +1,120 @@
-<!doctype HTML public "-//W3O//DTD W3 HTML 2.0//EN">
-<HTML>
-<HEAD>
-<TITLE>Introduction to GIFLIB</TITLE>
-<link rev=made href=mailto:esr@snark.thyrsus.com>
-</HEAD>
-<BODY>
-<CENTER><H1>Introduction to GIFLIB</H1></CENTER>
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN'
+    'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html>
+<head>
+<link rev='made' href='mailto:esr@snark.thyrsus.com' />
+<meta name='MSSmartTagsPreventParsing' content='TRUE' />
+<title>The GIFLIB project</title>
+<script type="text/javascript">
+// JavaScript to generate a compact date representation
 
-GIFLIB is a package of portable tools and library routines for working
-with GIF images.  You can find the latest version at the GIFLIB home
-page <a
-href="http://www.ccil.org/~esr/giflib">http://www.ccil.org/~esr/giflib</a>.<P>
+//
+// format date as dd-mmm-yyyyy
+// example: 12-Jan-1999
+//
+function date_ddmmmyyyy(date)
+{
+  var d = date.getDate();
+  var m = date.getMonth() + 1;
+  var y = date.getFullYear();
 
-The Graphics Interchange Format(c) specification is the copyrighted
-property of CompuServe Incorporated.  GIF(sm) is a service mark
-property of CompuServe Incorporated.  As this package existed before
-UniSys's lawyeritis attack of New Years' Day 1995, it is grandfathered
-in under their license terms and you do <em>not</em> have to pay fees
-for using it.<P>
+  // could use splitString() here 
+  // but the following method is 
+  // more compatible
+  var mmm = 
+    ( 1==m)?'Jan':( 2==m)?'Feb':(3==m)?'Mar':
+    ( 4==m)?'Apr':( 5==m)?'May':(6==m)?'Jun':
+    ( 7==m)?'Jul':( 8==m)?'Aug':(9==m)?'Sep':
+    (10==m)?'Oct':(11==m)?'Nov':'Dec';
 
-This package has been released under an X Consortium-life freeware
-license.  Use and copy as you see fit.  If you make useful changes,
-add new tools, or find and fix bugs, please send your mods to the
-maintainers for general distribution.</P>
+  return "" +
+    (d<10?"0"+d:d) + " " + mmm + " " + y;
+}
 
-The util directory includes programs to clip, rotate, scale, and
-position GIF images.  It includes an X11 viewer, code to dump GIFs to
-an Epson-compatible printer in graphics mode, and many conversion
-utilities.  These are no replacement for an interactive graphics
-editor, but they can be very useful for scripted image generation or
-transformation.<P>
 
-The library includes program-callable entry points for reading and writing
-GIF files, an 8x8 utility font for embedding text in GIFs, and an error
-handler.  GIF manipulation can be done at a relatively low level by
-sequential I/O (which automatically does/undoes image compression) or at
-a higher level by slurping an entire GIF into allocated core.<P>
+//
+// get last modified date of the 
+// current document.
+//
+function date_lastmodified()
+{
+  var lmd = document.lastModified;
+  var s   = "Unknown";
+  var d1;
 
-This library speaks both GIF87a and GIF89.  The differences between
-GIF87 and GIF89 are minor: in the latter, the interpretation of some
-extension block types is defined.  The library never needs to actually
-interpret these, but <a href="giftext.html">giftext</a> notices them.<P>
+  // check if we have a valid date
+  // before proceeding
+  if(0 != (d1=Date.parse(lmd)))
+  {
+    s = "" + date_ddmmmyyyy(new Date(d1));
+  }
 
-<H1>Utilities</H1>
+  return s;
+}
+// End
+</script>
+</head>
+<body>
+<table width='100%' cellpadding='0' summary='Canned page header' bgcolor="#ddd">
+<tr>
+<td><h2>The GIFLIB project</h2></td>
+<td align="center"><img src="giflib-logo.gif"></td>
+<td align='right'><script type="text/javascript">
+document.write(date_lastmodified());
+</script></td>
+</tr>
+</table>
 
-Here is a summary of the utilities in this package.  If you're looking
-at this page through a web browser, each utility name should be a
-hotlink to HTML documentation.<P>
+<p>The GIFLIB project maintains the giflib service library, which has
+been pulling images out of GIFs since 1989. It is deployed everywhere
+you can think of and some places you probably can't - graphics
+applications and web browsers on multiple operating systems, game
+consoles, smartphones, and likely your ATM too.</p>
 
-<H2>Conversion Utilities</H2>
+<p>Yes, this code is he reason GIFs were in Mosaic, the first web
+browser that could do inline graphics; it is the implementation
+Andreesen and Bina used.</p>
 
-<DL>
-<DT><a href="gif2bgi.html">gif2bgi</a>
-<DD>display GIFs on IBM PC displays using the BGI (Borland) driver
-<DT><a href="gif2epsn.html">gif2epsn</a>
-<DD>dump images saved as GIF files on Epson type printers
-<DT><a href="gif2herc.html">gif2herc</a>
-<DD>display GIFs on IBM PC displays using the Hercules graphic card
-<DT><a href="gif2iris.html">gif2iris</a>
-<DD>display GIFs under SGI NeWs window system
-<DT><a href="gif2ps.html">gif2ps</a>
-<DD>print GIF file on laser printers supporting PostScript
-<DT><a href="gif2rgb.html">gif2rgb</a>
-<DD>convert images saved as GIF to 24-bit RGB image(s)
-<DT><a href="gif2rle.html">gif2rle</a>
-<DD>convert images saved as GIF to RLE (Utah raster toolkit) format
-<DT><a href="gif2x11.html">gif2x11</a>
-<DD>display images saved as GIF files under X window system
-<DT><a href="raw2gif.html">raw2gif</a>
-<DD>convert raw 8-bit image data into GIF files
-<DT><a href="rgb2gif.html">rgb2gif</a>
-<DD>convert 24 bit images to a GIF image using color quantization
-<DT><a href="rle2gif.html">rle2gif</a>
-<DD>convert images saved as RLE (Utah raster toolkit) to GIF format
-</DL>
+<p>This is very mature, stable, small-footprint code with minimal
+dependencies (suitable for use in embedded deployments) that needs only
+occasional very minor bugfixes. Test reports from odd platforms and
+better regression tests are particularly welcome. Don't try to
+redesign it, applications beyond counting would break if you did.</p>
 
-<H2>Test Pattern Generators</H2>
+<p>It's "GIFLIB" in caps as a nod to the code's origins in the dark
+and backward abysm of MS-DOS, but Unix hackers are encouraged to spell it 
+"giflib" in deference to local conventions. :-)
 
-<DL>
-<DT><a href="gifbg.html">gifbg</a>
-<DD>generate a single-color test pattern GIF
-<DT><a href="gifcolor.html">gifcolor</a>
-<DD>generate color test patterns
-<DT><a href="gifwedge.html">gifwedge</a>
-<DD>create a test GIF image resembling a color monitor test pattern
-</DL>
+<p>You can read GIFLIB's documentation <a href="intro.html">here</a>
+and a very detailed description of GIF <a
+href="whatsinagif/index.html">here</a>. People to thank for this code:
+Gershon Elber, Eric S. Raymond, Toshio Kuratomi.</p>
 
-<H2>Image Manipulation Components</H2>
+<p>Before October 2006 the GIF format was encumbered by patents on the
+LZW compression it uses.  This first became an issue in 1993 when the
+patent-holders made ambiguous noises about requiring royalties.  For
+some time a subset of this code travelled as "libungif", supporting
+decompression but not compression. You can read a more detailed
+history <a href="history.html">here</a>.</p>
 
-<DL>
-<DT><a href="gifasm.html">gifasm</a>
-<DD>assemble multiple GIFs into one, or burst a multiple-mage GIF
-<DT><a href="gifclip.html">gifclip</a>
-<DD>clip or crop a GIF image
-<DT><a href="gifclrmp.html">gifclrmp</a>
-<DD>modify GIF image colormaps
-<DT><a href="gifcomb.html">gifcomb</a>
-<DD>combine 2 GIF images of exactly the same size into one
-<DT><a href="giffix.html">giffix</a>
-<DD>clumsily attempts to fix truncated GIF images
-<DT><a href="gifflip.html">gifflip</a>
-<DD>flip GIF image along X or Y axis or rotate by 90 degrees
-<DT><a href="gifinter.html">gifinter</a>
-<DD>convert between interlaced and non interlaced images
-<DT><a href="gifovly.html">gifovly</a>
-<DD>generate one composite GIF from a multiple-image GIF
-<DT><a href="gifpos.html">gifpos</a>
-<DD>change a GIF's screen size or recondition it.
-<DT><a href="gifrotat.html">gifrotat</a>
-<DD>rotate a GIF through any desired angle
-<DT><a href="gifrsize.html">gifrsize</a>
-<DD>resize a GIF by deletion or duplication of bits
-<DT><a href="gifburst.html">gifburst</a>
-<DD>burst a GIF image into subrectangles.
-</DL>
+<p>Note: The 5.x versions change the API slightly in a way that isn't
+compatible with older shared libraries.  This was required to fix 
+some known problems with the extensions API and with thread-safety.</p>
 
-<H2>Report Generators</H2>
+<p>If you require shared-library compatibility back to ancient
+versions, build from 4.2. 4.2 and the 5.0 version are behaviorally
+almost identical; the few differences are explained <a
+href="gif_lib.html#compatibility">here</a>.
 
-<DL>
-<DT><a href="giftext.html">giftext</a>
-<DD>print (text only) general information about a GIF
-<DT><a href="gifhisto.html">gifhisto</a>
-<DD>generate color-frequency histogram from a GIF
-</DL>
+<p>The SourceForge summary page (where you can download the source,
+review the project, find links to the bugtracker  and mailing list
+pages, or ask to join the project as a developer) is <a
+href="https://sourceforge.net/projects/giflib/">here</a>.
 
-<H2>GIF Composition Tools</H2>
+<p>If you appreciate this project, and especially if you make money
+from it, please <a href="https://www.patreon.com/esr">support
+continuing maintainance on Patreon</a>.</p>
 
-<DL>
-<DT><a href="icon2gif.html">icon2gif</a>
-<DD>converter/deconverter to/from an editable text format
-<DT><a href="text2gif.html">text2gif</a>
-<DD>generate GIF images out of regular text in 8x8 font
-<DT><a href="gifinto.html">gifinto</a>
-<DD>end-of-pipe fitting for GIF-processing pipelines
-<DT><a href="gifcompose.html">gifcompose</a>
-<DD>use giflib tools to compose images
-</DL>
-
-<H2>C Code Templates</H2>
-
-<DL>
-<DT><a href="giffiltr.html">giffiltr</a>
-<DD>template code for filtering a GIF sequentially
-<DT><a href="gifspnge.html">gifspnge</a>
-<DD>template code for filtering a GIF with in-core operations
-</DL>
-
-Under MS-DOS, most filters will print the current input scan line number
-(counting up) whenever they read image input, and will print output image line
-number (counting down) when they dump output.  Utilities that only read or
-write always print in increasing order.  Utilities (like GifPos that only
-change positions) that copy the image as a block of compressed data will print
-nothing --- they cannot identify a scan line number, and are enough faster that
-the feedback to the user doesn't seem necessary.<P>
-
-Some of the utilities require memory on the order of the whole screen, while
-others read one scan line at a time.  Each utility HTML file has entry called
-<em>Memory Usage</em> which will be one of:<P>
-
-<DL>
-<DT> Line <DD>	memory required is on the order of one scan line
-<DT> Image <DD>	proportional to the size of the biggest image in GIF file
-<DT> Screen <DD>	proportional to GIF screen size
-</DL>
-
-In all cases a byte is allocated per pixel, so an image of 320 by 200 pixels
-will requires approximately 64k bytes of main memory.<P>
-
-<H1>Library Functions</H1>
-
-The library contains two groups of C functions.  One group does sequential
-I/O on the stream-oriented GIF format.  The other supports grabbing an
-entire GIF into allocated core, operating on it in core, and then writing
-the modified in-core GIF out to disk.<P>
-
-Unless you are on a 286 or some other very memory-limited machine
-running under DOS, you probably want to use the second group.<P>
-
-Detailed documentation on the library entry points is in <a
-href="gif_lib.html">gif_lib.html</a>. Library error codes are
-described in <a href="liberror.html">liberror.html</a><P>
-
-<H1>The GIF Standard</H1>
-
-The doc subdurector includes flat-ASCII descriptions of <a
-href="gif89.txt">GIF89 format</a> and <a href="lzgif.txt">Lempel-Ziv
-Compression</a>.<P>
-
-<H1>History</H1>
-
-This package was originally written by Gershon Elber <gershon@cs.utah.edu>
-in 1990 on an IBM PC under MS-DOS using Borland Turbo C.  He made it portable
-to several UNIX environments.<P>
-
-The 2.1 version featured substantial changes and additions by Eric
-S. Raymond <esr@snark.thyrsus.com>.  These included the
-DGifSlurp/EGifSpew function pair for enabling non-sequential
-operations on GIF images and the tools icon2gif, gifovly, gifburst, and
-gifcompose.<P>
-
-The 2.4 version converted all the docs from an idiosyncratic
-plain-text formal to to HTML.<P>
-
-<H1>Package Status</H1>
-
-GIFLIB's current maintainer is Eric S. Raymond.  You can find his home
-page at <a href="http://www.ccil.org/esr">http://www.ccil.org/esr</a>.<P>
-
-GIFLIB is not under active development, but bug fixes are being accepted.<P>
-
-<HR>
-<ADDRESS>Eric S. Raymond <A HREF="mailto:esr@thyrsus.com">&lt;esr@snark.thyrsus.com&gt;</A></ADDRESS>
-</BODY>
-</HTML>
+</body>
+</html>
